@@ -32,6 +32,7 @@ Data include tables : <b> <i> customers, products, productlines, orders, orderde
 
 ## 6. Implementation
 ### 6.1 Load sales data into MySQL database
+
 <b> Airflow task </b>
 
 ```python
@@ -43,5 +44,94 @@ setup_source = SQLExecuteQueryOperator(
     dag=dag
 )    
 ```
-<b> setup_source : </b> Run setup queries to create tables and add data to source database
+<b> setup_source: </b> Run setup queries to create tables and add data to source database
 
+
+### 6.2 Load sales data from MySQL into Redshift
+<b> Airflow tasks </b>
+
+```python
+# setup datawarehouse tables
+setup_dw = SQLExecuteQueryOperator(
+    task_id='setup_dw',
+    conn_id='classicmodels',
+    sql='./sql_queries/setup/dw_setup.sql',
+    dag=dag
+)
+
+#ingest dimension tables
+ingest_products = GenericTransfer(
+    task_id='ingest_products',
+    sql='./sql_queries/extract/product_extract.sql',
+    destination_table='classicmodels_dw.products',
+    source_conn_id='classicmodels',
+    destination_conn_id='classicmodels',
+    insert_args={'target_fields':['productCode','productName', 'productLine', 'productScale', 'productVendor', 'productDescription']},
+    dag=dag
+)
+
+ingest_customers = GenericTransfer(
+    task_id='ingest_customers',
+    sql='./sql_queries/extract/customer_extract.sql',
+    destination_table='classicmodels_dw.customers',
+    source_conn_id='classicmodels',
+    destination_conn_id='classicmodels',
+    insert_args={'target_fields':['customerNumber', 'customerName', 'contactLastName', 'contactFirstName', 'phone', 
+'addressLine1', 'addressLine2', 'city', 'state', 'postalCode', 'country']},
+    dag=dag
+)
+
+ingest_employees = GenericTransfer(
+    task_id='ingest_employees',
+    sql='./sql_queries/extract/employee_extract.sql',
+    destination_table='classicmodels_dw.employees',
+    source_conn_id='classicmodels',
+    destination_conn_id='classicmodels',
+    insert_args={'target_fields':['employeeNumber', 'lastName', 'firstName', 'extension', 'email']},
+    dag=dag
+)
+
+ingest_offices = GenericTransfer(
+    task_id='ingest_offices',
+    sql='./sql_queries/extract/office_extract.sql',
+    destination_table='classicmodels_dw.offices',
+    source_conn_id='classicmodels',
+    destination_conn_id='classicmodels',
+    insert_args={'target_fields':['officeCode', 'city', 'phone', 'addressLine1', 'addressLine2', 'state', 'country', 'postalCode', 'territory']},
+    dag=dag
+)
+
+#ingest staging table
+shipped_orders_staging = GenericTransfer(
+    task_id='shipped_orders_staging',
+    sql='./sql_queries/extract/shipped_orders_staging.sql',
+    destination_table='classicmodels_dw.shipped_orders_detail_staging',
+    source_conn_id='classicmodels',
+    destination_conn_id='classicmodels',
+    insert_args={'target_fields':['customerNumber','productCode','employeeNumber','officeCode', 'orderNumber','quantityOrdered',
+                                  'priceEach','value','shippedDate']},
+    dag=dag
+)
+```
+<b> setup_dw: </b> Run setup queries to create datawarehouse tables
+<b> ingest_products: </b> Ingest products dimension from MySQL to Redshift
+<b> ingest_customers: </b> Ingest customers dimension from MySQL to Redshift
+<b> ingest_employees: </b> Ingest employees dimension from MySQL to Redshift
+<b> ingest_offices: </b> Ingest offices dimension from MySQL to Redshift
+<b> shipped_orders_staging: </b> Ingest sale data from MySQL to Redshift
+
+### 6.3 Complete fact table in Redshift
+<b> Airflow task </b>
+
+```python
+
+#staging to fact
+staging_to_fact = SQLExecuteQueryOperator(
+    task_id='staging_to_fact',
+    conn_id="classicmodels",
+    database='classicmodels_dw',
+    sql='./sql_queries/fact/staging_to_fact.sql',
+    dag=dag
+    )
+```
+<b> staging_to_fact: </b> Transform data from staging table to fact table to deal with Slow Changing Dimensions (SCD) 
