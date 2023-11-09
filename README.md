@@ -9,3 +9,11 @@ Data include tables : <b> <i> customers, products, productlines, orders, orderde
 - Airflow
 - AWS services: Redshift (data warehouse)
 - Docker
+
+## 3. Design 
+<div style="display: flex; flex-direction: column;">
+  <img src=assets/source_schema.png alt="Data model" width="600" height="500">
+  <p style="text-align: center;"> <b> <i> Data model for MySQL </i> </b> </p>
+</div>
+
+<br> <br>
