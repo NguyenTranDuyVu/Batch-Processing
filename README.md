@@ -1,5 +1,5 @@
 ## 1. Introduction 
-Using classicmodels dataset about sale data of a company in 2003,assume the company's analytic teams is interested in understanding their business situation in the last year. We will build ETL pipelines which will transform raw data into actionable insights, store them in OLTP database (MySQL) then load data to a star schema data mart(Amazon Redshift) for enhanced data analytics capabilities.
+Using classicmodels dataset about sale data of a company in 2003, assume the company's analytic teams is interested in understanding their business situation in the this year. We will build ETL pipelines which will transform raw data into actionable insights, store them in OLTP database (MySQL) then load data to a star schema data mart(Amazon Redshift) for enhanced data analytics capabilities.
 
 Data include tables : <b> <i> customers, products, productlines, orders, orderdetails, payments, employees, offices </i> </b>
 
@@ -29,3 +29,6 @@ Data include tables : <b> <i> customers, products, productlines, orders, orderde
   <img src=assets/airflow_workflow.png alt="Airflow workflow" width="900" height="500">
   <p style="text-align: center;"> <b> <i> Airflow workflow </i> </b> </p>
 </div>
+
+## 6. Implementation
+### 6.1 Load sales data into MySQL database
