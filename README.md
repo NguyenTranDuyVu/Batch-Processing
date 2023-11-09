@@ -43,4 +43,5 @@ setup_source = SQLExecuteQueryOperator(
     dag=dag
 )    
 ```
+<b> setup_source : </b> Run setup queries to create tables and add data to source database
 
