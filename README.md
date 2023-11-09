@@ -17,3 +17,15 @@ Data include tables : <b> <i> customers, products, productlines, orders, orderde
 </div>
 
 <br> <br>
+
+<div style="display: flex; flex-direction: column;">
+  <img src=assets/DW_schema.png alt="Star schema" width="600" height="500">
+  <p style="text-align: center;"> <b> <i> Data model (star schema) for Redshift </i> </b> </p>
+</div>
+
+<br> <br>
+
+<div style="display: flex; flex-direction: column;">
+  <img src=assets/airflow_workflow.png alt="Airflow workflow" width="900" height="500">
+  <p style="text-align: center;"> <b> <i> Airflow workflow </i> </b> </p>
+</div>
