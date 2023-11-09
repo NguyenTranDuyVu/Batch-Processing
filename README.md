@@ -113,12 +113,14 @@ shipped_orders_staging = GenericTransfer(
     dag=dag
 )
 ```
+<br>
 <b> setup_dw: </b> Run setup queries to create datawarehouse tables
 <b> ingest_products: </b> Ingest products dimension from MySQL to Redshift
 <b> ingest_customers: </b> Ingest customers dimension from MySQL to Redshift
 <b> ingest_employees: </b> Ingest employees dimension from MySQL to Redshift
 <b> ingest_offices: </b> Ingest offices dimension from MySQL to Redshift
 <b> shipped_orders_staging: </b> Ingest sale data from MySQL to Redshift
+<br>
 
 ### 6.3 Complete fact table in Redshift
 <b> Airflow task </b>
@@ -134,4 +136,5 @@ staging_to_fact = SQLExecuteQueryOperator(
     dag=dag
     )
 ```
+
 <b> staging_to_fact: </b> Transform data from staging table to fact table to deal with Slow Changing Dimensions (SCD) 
