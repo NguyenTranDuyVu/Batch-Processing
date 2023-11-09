@@ -1,0 +1,1 @@
+select employeeNumber, lastName, firstName, extension, email from classicmodels.employees;

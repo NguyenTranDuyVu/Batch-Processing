@@ -27,7 +27,7 @@ country varchar(50)
 );
 create table classicmodels_dw.employees (
 employeeId int primary key auto_increment,
-empoyeeNumber int NOT NULL,
+employeeNumber int NOT NULL,
 lastName varchar(50),
 firstName varchar(50),
 extension varchar(10),
@@ -57,12 +57,22 @@ orderNumber int,
 quantityOrdered int,
 priceEach decimal(10,2),
 value decimal(10,2),
-date int,
+shippedDate int,
 foreign key(customerId) references customers(customerId),
 foreign key(productId) references products(productId),
 foreign key(employeeId) references employees(employeeId),
 foreign key(officeId) references offices(officeId)
 );
 
-
+create table classicmodels_dw.shipped_orders_detail_staging (
+customerNumber int,
+productCode varchar(15), 
+employeeNumber int,
+officeCode int,
+orderNumber int,
+quantityOrdered int,
+priceEach decimal(10,2),
+value decimal(10,2),
+shippedDate int
+);
 
