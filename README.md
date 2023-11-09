@@ -34,9 +34,13 @@ Data include tables : <b> <i> customers, products, productlines, orders, orderde
 ### 6.1 Load sales data into MySQL database
 <b> Airflow task </b>
 
+```python
+
 setup_source = SQLExecuteQueryOperator(
     task_id='setup_source',
     conn_id='classicmodels',
     sql='./sql_queries/setup/source_setup.sql',
     dag=dag
 )    
+```
+
