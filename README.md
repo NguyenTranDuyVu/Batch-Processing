@@ -1,5 +1,5 @@
 ## 1. Introduction 
-Using classicmodels dataset about sale data of a company in 2003, assume the company's analytic teams is interested in understanding their business situation in the this year. We will build ETL pipelines which will transform raw data into actionable insights, store them in OLTP database (MySQL) then load data to a star schema data mart(Amazon Redshift) for enhanced data analytics capabilities.
+Using classicmodels dataset about sale data of a company in 2004 as source data, assume the company's analytic teams is interested in understanding their business situation in the this year. We will build ETL pipelines which will transform raw data into actionable insights, store them in OLTP database (MySQL) then load data to a star schema data mart(Amazon Redshift) for enhanced data analytics capabilities.
 
 Data include tables : <b> <i> customers, products, productlines, orders, orderdetails, payments, employees, offices </i> </b>
 
@@ -7,8 +7,13 @@ Data include tables : <b> <i> customers, products, productlines, orders, orderde
 - Python
 - MySQL
 - Airflow
-- AWS services: Redshift (data warehouse)
+- AWS services: Redshift (data warehouse & dashboards)
 - Docker
+
+## 2. Implementation overview 
+Design data model for data warehouse (Amazon Redshift). Build an ETL pipeline to transform raw data fromMySQL to Amazon Redshift for enhanced data analytics . Using Airflow to orchestrate pipeline workflow, Redshift Serverless for datawarehouse, and Docker to deploy Airflow.
+
+<img src = assets/architecture.png alt = "architecture">
 
 ## 3. Design 
 <div style="display: flex; flex-direction: column;">

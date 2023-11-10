@@ -1,1 +1,1 @@
-select productCode, productName, productLine, productScale, productVendor, productDescription from classicmodels.products;
+select productCode, productName, productLine, productScale, productVendor from classicmodels.products;
