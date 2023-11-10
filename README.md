@@ -24,7 +24,7 @@ Design data model for data warehouse (Amazon Redshift). Build an ETL pipeline to
 <br> <br>
 
 <div style="display: flex; flex-direction: column;">
-  <img src=assets/DW_schema.png alt="Star schema" width="600" height="500">
+  <img src=assets/dw_schema.png alt="Star schema" width="600" height="500">
   <p style="text-align: center;"> <b> <i> Data model (star schema) for Redshift </i> </b> </p>
 </div>
 
