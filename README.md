@@ -41,6 +41,11 @@ Design data model for data warehouse (Amazon Redshift). Build an ETL pipeline to
 - AWS account 
 - Docker 
 
+### Important note
+
+<b> You must specify AWS credentials for each of the following </b>
+- Redshift access : Make Redshift workgroup available to public and create a superuser, then add a Redshift connection to the Airflow connection store to use for ETL pipelines.
+
 ## 5. Implementation
 ### 5.1 Load sales data into MySQL database
 
