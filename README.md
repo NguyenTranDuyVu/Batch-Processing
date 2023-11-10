@@ -5,12 +5,10 @@
 4. [Design](#3-design)
 5. [Settings](#4-settings)
    - [Prerequisites](#prerequisites)
-   - [AWS](#aws-infrastructure)
+   - [AWS](#AWS)
    - [Docker](#docker)
    - [Python](#Python)
-7. [Implementation](#6-implementation)
-   - [Load Sales Data into PostgreSQL Database](#61-load-sales-data-into-postgresql-database)
-   - [Load Data from PostgreSQL to Amazon Redshift](#62-load-data-from-postgresql-to-amazon-redshift)
+6. [Implementation](#5-implementation)
 8. [Visualize Result](#7-visualize-result)
 
 ## 1. Introduction 
