@@ -35,8 +35,14 @@ Design data model for data warehouse (Amazon Redshift). Build an ETL pipeline to
   <p style="text-align: center;"> <b> <i> Airflow workflow </i> </b> </p>
 </div>
 
-## 6. Implementation
-### 6.1 Load sales data into MySQL database
+## 4. Settings
+
+### Prerequisites
+- AWS account 
+- Docker 
+
+## 5. Implementation
+### 5.1 Load sales data into MySQL database
 
 <b> Airflow task </b>
 
@@ -52,7 +58,7 @@ setup_source = SQLExecuteQueryOperator(
 <b> setup_source: </b> Run setup queries to create tables and add data to source database
 
 
-### 6.2 Load sales data from MySQL into Redshift
+### 5.2 Load sales data from MySQL into Redshift
 <b> Airflow tasks </b>
 
 ```python
@@ -132,7 +138,7 @@ shipped_orders_staging = GenericTransfer(
 <b> shipped_orders_staging: </b> Ingest sale data from MySQL to Redshift
 <br>
 
-### 6.3 Complete fact table in Redshift
+### 5.3 Complete fact table in Redshift
 <b> Airflow task </b>
 
 ```python
