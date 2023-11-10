@@ -175,3 +175,33 @@ staging_to_fact = SQLExecuteQueryOperator(
 ```
 
 <b> staging_to_fact: </b> Transform data from staging table to fact table to deal with Slow Changing Dimensions (SCD) 
+
+## 7. Visualize result
+
+Using redshift to queries and make dashboards
+
+<div style="display: flex; flex-direction: column;">
+  <img src=assets/redshift.png alt="connect_metabase" height="500">
+  <p style="text-align: center;"> <b> <i> Redshift </i> </b> </p>
+</div>
+
+<div style="display: flex; flex-direction: column;">
+  <img src=assets/revenue_each_country.png alt="Revenue in each country" height="500">
+  <p style="text-align: center;"> <b> <i> Revenue in each country in 2004 </i> </b> </p>
+</div>
+
+<br> <br>
+
+<div style="display: flex; flex-direction: column;">
+  <img src=assets/revenue_each_month.png alt="Revenue in each month" height="500">
+  <p style="text-align: center;"> <b> <i> Revenue in each month in 2004 </i> </b> </p>
+</div>
+
+<br> <br>
+
+<div style="display: flex; flex-direction: column;">
+  <img src=assets/revenue_productline.png alt="Revenue by productline" height="500">
+  <p style="text-align: center;"> <b> <i> Revenue of each product line in 2004 </i> </b> </p>
+</div>
+
+<br> <br>
