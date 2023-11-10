@@ -58,6 +58,11 @@ docker compose up
 <b>Install dependencies</b>
 - Install airflow libraries for MySQL and Redshift connectors.
 
+```bash
+pip install apache-airflow-providers-mysql
+pip install apache-airflow-providers-amazon
+```
+
 ## 5. Implementation
 ### 5.1 Load sales data into MySQL database
 
@@ -82,7 +87,7 @@ setup_source = SQLExecuteQueryOperator(
 # setup datawarehouse tables
 setup_dw = SQLExecuteQueryOperator(
     task_id='setup_dw',
-    conn_id='classicmodels',
+    conn_id='classicmodels_dw',
     sql='./sql_queries/setup/dw_setup.sql',
     dag=dag
 )
@@ -93,7 +98,7 @@ ingest_products = GenericTransfer(
     sql='./sql_queries/extract/product_extract.sql',
     destination_table='classicmodels_dw.products',
     source_conn_id='classicmodels',
-    destination_conn_id='classicmodels',
+    destination_conn_id='classicmodels_dw',
     insert_args={'target_fields':['productCode','productName', 'productLine', 'productScale', 'productVendor', 'productDescription']},
     dag=dag
 )
@@ -103,7 +108,7 @@ ingest_customers = GenericTransfer(
     sql='./sql_queries/extract/customer_extract.sql',
     destination_table='classicmodels_dw.customers',
     source_conn_id='classicmodels',
-    destination_conn_id='classicmodels',
+    destination_conn_id='classicmodels_dw',
     insert_args={'target_fields':['customerNumber', 'customerName', 'contactLastName', 'contactFirstName', 'phone', 
 'addressLine1', 'addressLine2', 'city', 'state', 'postalCode', 'country']},
     dag=dag
@@ -114,7 +119,7 @@ ingest_employees = GenericTransfer(
     sql='./sql_queries/extract/employee_extract.sql',
     destination_table='classicmodels_dw.employees',
     source_conn_id='classicmodels',
-    destination_conn_id='classicmodels',
+    destination_conn_id='classicmodels_dw',
     insert_args={'target_fields':['employeeNumber', 'lastName', 'firstName', 'extension', 'email']},
     dag=dag
 )
@@ -124,7 +129,7 @@ ingest_offices = GenericTransfer(
     sql='./sql_queries/extract/office_extract.sql',
     destination_table='classicmodels_dw.offices',
     source_conn_id='classicmodels',
-    destination_conn_id='classicmodels',
+    destination_conn_id='classicmodels_dw',
     insert_args={'target_fields':['officeCode', 'city', 'phone', 'addressLine1', 'addressLine2', 'state', 'country', 'postalCode', 'territory']},
     dag=dag
 )
@@ -135,7 +140,7 @@ shipped_orders_staging = GenericTransfer(
     sql='./sql_queries/extract/shipped_orders_staging.sql',
     destination_table='classicmodels_dw.shipped_orders_detail_staging',
     source_conn_id='classicmodels',
-    destination_conn_id='classicmodels',
+    destination_conn_id='classicmodels_dw',
     insert_args={'target_fields':['customerNumber','productCode','employeeNumber','officeCode', 'orderNumber','quantityOrdered',
                                   'priceEach','value','shippedDate']},
     dag=dag
@@ -163,8 +168,7 @@ shipped_orders_staging = GenericTransfer(
 #staging to fact
 staging_to_fact = SQLExecuteQueryOperator(
     task_id='staging_to_fact',
-    conn_id="classicmodels",
-    database='classicmodels_dw',
+    conn_id="classicmodels_dw",
     sql='./sql_queries/fact/staging_to_fact.sql',
     dag=dag
     )
